@@ -3,6 +3,8 @@
 > 🎓 **MSc project, Ulster University** (Cloud Computing / Scalable systems coursework, Computer Science & Technology).
 > A learning project: user data is held in memory and the app is **not production-ready** (see limitations).
 
+> ☁️ **Deployment note:** the app was deployed to Azure App Service during my MSc module using a student subscription. That subscription has ended, so there is **no live demo** at the moment. Run it locally or with Docker (see below).
+
 ## What it does
 SnapVerse is a small Instagram-style web app where users sign up, log in and share photos. It was built to practise designing, containerising and deploying a web application on Microsoft Azure.
 
