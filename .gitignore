@@ -1,0 +1,11 @@
+node_modules/
+.env
+.env.*
+!.env.example
+*.PublishSettings
+*.publishsettings
+public/uploads/
+uploads/
+*.log
+.vscode/
+Thumbs.db

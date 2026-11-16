@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snapverse-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: snapverse
+  template:
+    metadata:
+      labels:
+        app: snapverse
+    spec:
+      containers:
+      - name: snapverse
+        image: <your-registry>.azurecr.io/snapverse-app:v1
+        ports:
+        - containerPort: 3000

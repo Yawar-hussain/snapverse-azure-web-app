@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SnapVerse - Share Instantly</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: #0a0f1c;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .hero {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #00ff99;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: #aaa;
+    }
+
+    .hero-buttons {
+      margin-top: 30px;
+    }
+
+    .hero-buttons a {
+      margin: 0 10px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .btn-start {
+      background-color: #00ff99;
+      color: #0a0f1c;
+    }
+
+    .btn-login {
+      border: 2px solid #00ff99;
+      color: #00ff99;
+    }
+
+    .features {
+      padding: 50px 20px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .feature-box {
+      background: rgba(255,255,255,0.06);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .feed-title {
+      margin-top: 40px;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: #00ff99;
+    }
+
+    .feed-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 0 20px 60px;
+    }
+
+    .post-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .post-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .comment-box input {
+      width: 70%;
+      padding: 6px;
+      border-radius: 5px;
+      border: none;
+      margin-right: 5px;
+    }
+
+    .comment-box button {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 5px;
+      background: #00ff99;
+      color: #0a0f1c;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 10px;
+    }
+
+    li {
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    .footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      background: rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>SnapVerse</h1>
+    <p>Instant photo sharing for creators. Built on Azure. Fast, simple, scalable.</p>
+
+    <div class="hero-buttons">
+
+      <% if (!user) { %>
+
+        <a href="/signup" class="btn-start">Get Started</a>
+        <a href="/login" class="btn-login">Login</a>
+
+      <% } else { %>
+
+        <h3 style="margin-top: 20px; color: #00ff99;">
+          Welcome, <%= user.username %>
+        </h3>
+
+        <% if (user.role !== "consumer") { %>
+          <a href="/upload" class="btn-start">Upload Photo</a>
+        <% } %>
+
+        <a href="/logout" class="btn-login">Logout</a>
+
+      <% } %>
+
+    </div>
+  </div>
+
+  <div class="features container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="feature-box">
+          <h4>Fast Uploads</h4>
+          <p>Upload your photos instantly with captions and share them with the world.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-box">
+          <h4>Live Feed</h4>
+          <p>See what others are posting in real time. Like and comment to engage.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-box">
+          <h4>Cloud Native</h4>
+          <p>Hosted on Azure App Service with Blob Storage for scalable performance.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="text-center feed-title">Live Feed</h2>
+
+  <div class="feed-grid">
+    <% images.forEach((image, index) => { %>
+      <div class="post-card">
+        <strong><%= image.user %></strong>
+        <img src="<%= image.path %>" alt="SnapVerse post" />
+        <p><%= image.caption %></p>
+
+        <form action="/like/<%= index %>" method="POST">
+          <button type="submit" class="btn btn-sm btn-outline-light">❤️ Like (<%= image.likes %>)</button>
+        </form>
+
+        <form action="/comment/<%= index %>" method="POST" class="comment-box mt-2">
+          <input type="text" name="comment" placeholder="Add a comment..." required />
+          <button type="submit">Post</button>
+        </form>
+
+        <ul>
+          <% image.comments.forEach(c => { %>
+            <li><strong><%= c.user %>:</strong> <%= c.text %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% }) %>
+  </div>
+
+  <div class="footer">
+    © 2026 SnapVerse — COM769 Coursework Project
+  </div>
+
+</body>
+</html>
