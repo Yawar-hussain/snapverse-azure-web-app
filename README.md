@@ -11,12 +11,12 @@ SnapVerse is a small Instagram-style web app where users sign up, log in and sha
 ## Features
 - **Sign up / log in / log out** with server-side sessions (`express-session`)
 - **Role-based access:** `creator` accounts can upload photos, `consumer` accounts can only browse, like and comment
-- **Photo upload** with captions (Multer)
+- **Photo upload** with captions (Multer), stored in **Azure Blob Storage**
 - **Feed** with likes and comments
 - Server-rendered pages with **EJS** templates
 
 ## Tech stack
-Node.js · Express · EJS · express-session · Multer · Docker · GitHub Actions · Azure App Service · Kubernetes manifest (Azure Container Registry image)
+Node.js · Express · EJS · express-session · Multer · Azure Blob Storage SDK · Docker · GitHub Actions · Azure App Service · Kubernetes manifest (Azure Container Registry image)
 
 ## Azure and DevOps
 | Piece | Where |
@@ -30,26 +30,26 @@ Node.js · Express · EJS · express-session · Multer · Docker · GitHub Actio
 git clone https://github.com/Yawar-hussain/snapverse-azure-web-app.git
 cd snapverse-azure-web-app
 npm install
-cp .env.example .env     # set SESSION_SECRET to a long random string
+cp .env.example .env     # set SESSION_SECRET and AZURE_STORAGE_CONNECTION_STRING (your own storage account)
 node server.js           # http://localhost:3000
 ```
 Or with Docker:
 ```bash
 docker build -t snapverse .
-docker run -p 3000:3000 -e SESSION_SECRET=change-me snapverse
+docker run -p 3000:3000 -e SESSION_SECRET=change-me -e AZURE_STORAGE_CONNECTION_STRING="<yours>" snapverse
 ```
 
 ## Screenshots
 *(add screenshots of the feed, login and upload pages to `screenshots/`)*
 
 ## Limitations (what this project is not)
-- **Users and posts are stored in memory**, so they are lost when the app restarts
+- **Users, captions, likes and comments are stored in memory**, so they are lost when the app restarts (only the photos persist, in Blob Storage)
 - **Passwords are stored in plain text in memory.** This is acceptable for a coursework demo only
-- Uploaded photos are saved on the local disk, which is not suitable for scaling out
+- The photo container is public-read, and there is no image validation or size limit
 
 ## What I would do differently in production
 - Hash passwords (bcrypt) and store users and posts in a managed database (Azure Cosmos DB or Azure SQL)
-- Store images in **Azure Blob Storage** and serve them through a CDN
+- Serve images through a CDN and generate short-lived (SAS) URLs instead of a public container
 - Use Azure Key Vault for secrets, HTTPS only, CSRF protection and rate limiting
 - Add automated tests and health-check endpoints, and autoscale on Azure App Service or AKS
 
