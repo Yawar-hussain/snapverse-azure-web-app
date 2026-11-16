@@ -3,7 +3,7 @@
 > 🎓 **MSc project, Ulster University** (Cloud Computing / Scalable systems coursework, Computer Science & Technology).
 > A learning project: user data is held in memory and the app is **not production-ready** (see limitations).
 
-> ☁️ **Deployment note:** the app was deployed to Azure App Service during my MSc module using a student subscription. That subscription has ended, so there is **no live demo** at the moment. Run it locally or with Docker (see below).
+> ☁️ **Deployment note:** the app was deployed to Azure App Service (free F1 plan) with a GitHub Actions pipeline during my MSc module. I no longer keep a public demo linked, so see the screenshots below, or run it locally / with Docker.
 
 ## What it does
 SnapVerse is a small Instagram-style web app where users sign up, log in and share photos. It was built to practise designing, containerising and deploying a web application on Microsoft Azure.
@@ -40,7 +40,11 @@ docker run -p 3000:3000 -e SESSION_SECRET=change-me -e AZURE_STORAGE_CONNECTION_
 ```
 
 ## Screenshots
-*(add screenshots of the feed, login and upload pages to `screenshots/`)*
+| Landing page | Login | Sign up |
+|---|---|---|
+| ![Landing page](screenshots/01-landing.png) | ![Login](screenshots/02-login.png) | ![Sign up](screenshots/03-signup.png) |
+
+*(Feed and upload screenshots to be added.)*
 
 ## Limitations (what this project is not)
 - **Users, captions, likes and comments are stored in memory**, so they are lost when the app restarts (only the photos persist, in Blob Storage)
