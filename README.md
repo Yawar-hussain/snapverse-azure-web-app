@@ -44,7 +44,9 @@ docker run -p 3000:3000 -e SESSION_SECRET=change-me -e AZURE_STORAGE_CONNECTION_
 |---|---|---|
 | ![Landing page](screenshots/01-landing.png) | ![Login](screenshots/02-login.png) | ![Sign up](screenshots/03-signup.png) |
 
-*(Feed and upload screenshots to be added.)*
+| Feed (image served from Azure Blob Storage) | Upload page (creator role) |
+|---|---|
+| ![Feed](screenshots/04-feed.jpg) | ![Upload](screenshots/05-upload.jpg) |
 
 ## Limitations (what this project is not)
 - **Users, captions, likes and comments are stored in memory**, so they are lost when the app restarts (only the photos persist, in Blob Storage)
